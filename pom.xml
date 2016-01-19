@@ -14,13 +14,12 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>com.groupon.api</groupId>
     <artifactId>api-parent-pom</artifactId>
     <version>1.0.11</version>
-    <relativePath/>
+    <relativePath />
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -30,7 +29,7 @@
   <name>Vertx Redis Library</name>
   <description>Library for accessing Redis from Vert.x applications</description>
   <url>https://github.com/groupon/vertx-redis</url>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.0.1</version>
 
   <licenses>
     <license>
@@ -109,7 +108,7 @@
     <connection>scm:git:git@github.com:groupon/vertx-redis.git</connection>
     <developerConnection>scm:git:git@github.com:groupon/vertx-redis.git</developerConnection>
     <url>https://github.com/groupon/vertx-redis</url>
-    <tag>HEAD</tag>
+    <tag>vertx-redis-3.0.1</tag>
   </scm>
 
   <properties>
