@@ -8,9 +8,8 @@ install: true
 before_script:
 - gpg --import commit_sign.key
 script:
-- mvn clean install --settings settings.xml -P ci-strict -Dgpg.skip=true -U
-- if [ \( -n "${TRAVIS_TAG}" \) -a "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn
-  deploy --settings settings.xml -P ci-strict; fi;
+- mvn clean install --settings settings.xml -P ci,release -Dgpg.skip=true -U
+- if [ \( -n "${TRAVIS_TAG}" \) -a "${TRAVIS_PULL_REQUEST}" = "false" ]; then mvn deploy --settings settings.xml -P ci,release; fi;
 env:
   global:
   - secure: bOoG23hElAWTRSU061m0bUwpvKNA/A4KqVToQEjXOt75pHyv1jgO4lIpqXZ6YH91ZqPHqltoMc1Iad+D635Zjqo80ks9nBt66UIAx25ZWyy+gJqz6RuMrNW6vR//NS1SoRXdCCZkWfU6rc8wy2gapoCZhW56fUzUyaA/hZP1H0u9j9Q8+xu5wqOUJb6/HhTuwfUu6ESm3PFcfrgG3nEA05nnyB5dMolnMkbti0TjZZ0GHSCRQpN9uQ2i0+sMf2ol74sGkRapLPS0KaY3kWzPdEURR1IFvsSetWgBTPhgCQQGcg8+46ZAxsWL+ptG0N4TLqyIQ/17SlpoWCKfGp6iiyiymXH3fK9NJE0JufUTXnkVc9lWasHVFcYo9fyj8kf0DioYa3XqOJo/0tx6gvcpbh+foyXFRw0RWFqeI90lg1XZwZU441n6NysTHACEoLvRAahXqWcP48qqdaXZoQYwLfnftqHPUxw2m1Y+aH2nW6Rct9+k1MRf+R9Owk96FPgwI7iNj0hRX5XFfahymEvRZ3XNGnIg7x4crq2l0GlzZ+pLZ1Fg191UDsXeuV0Zc2fGU15G0r5O8x4Q3+oIDot60rvqYeYhbDzY/M5RNl28WhwfTnz9HHi2188aUbEmKrCI0J6727hWokMDWnvYCvz6oUnZMVsxwju6xCIIm3+PflE=
