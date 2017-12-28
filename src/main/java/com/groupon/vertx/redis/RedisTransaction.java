@@ -39,7 +39,7 @@ import io.vertx.core.json.JsonObject;
 final class RedisTransaction extends RedisBaseClient implements  RedisCommandTransaction {
     private final Queue<RedisCommand> pendingCommands;
 
-    public RedisTransaction(EventBus eventBus, String eventBusAddress, long timeout) {
+    RedisTransaction(EventBus eventBus, String eventBusAddress, long timeout) {
         super(eventBus, eventBusAddress, timeout);
         this.pendingCommands = new LinkedList<>();
     }
