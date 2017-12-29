@@ -29,7 +29,7 @@
   <name>Vertx Redis Library</name>
   <description>Library for accessing Redis from Vert.x applications</description>
   <url>https://github.com/groupon/vertx-redis</url>
-  <version>3.0.3-SNAPSHOT</version>
+  <version>3.0.2-SNAPSHOT</version>
 
   <licenses>
     <license>
