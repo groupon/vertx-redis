@@ -1,12 +1,12 @@
 /**
  * Copyright 2014 Groupon.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,10 +15,10 @@
  */
 package com.groupon.vertx.redis;
 
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +27,6 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.eventbus.Message;
 import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetSocket;
@@ -35,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -79,7 +77,7 @@ public class RedisSocketHandlerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        stub(vertx.eventBus()).toReturn(eventBus);
+        doReturn(eventBus).when(vertx).eventBus();
 
         RedisSocketHandler handler = new RedisSocketHandler(vertx, "address", "host", 1234, netClient, 1);
 
@@ -87,7 +85,7 @@ public class RedisSocketHandlerTest {
 
         verify(netClient, times(1)).connect(eq(1234), eq("host"), handlerCaptor.capture());
 
-        doReturn(consumer).when(eventBus).consumer(anyString(), Matchers.<Handler<Message<Object>>>any());
+        doReturn(consumer).when(eventBus).consumer(anyString(), any());
 
         asyncResultHandler = handlerCaptor.getValue();
     }
@@ -100,7 +98,7 @@ public class RedisSocketHandlerTest {
 
         verify(netSocket, times(1)).exceptionHandler(closeCaptorThrowable.capture());
 
-        verify(eventBus, times(1)).consumer(eq("address"), Matchers.<Handler<Message<Object>>>any());
+        verify(eventBus, times(1)).consumer(eq("address"), any());
     }
 
     @Test
@@ -109,7 +107,7 @@ public class RedisSocketHandlerTest {
 
         verify(netSocket, times(1)).exceptionHandler(exceptionCaptor.capture());
 
-        verify(eventBus, times(1)).consumer(eq("address"), Matchers.<Handler<Message<Object>>>any());
+        verify(eventBus, times(1)).consumer(eq("address"), any());
 
         Handler<Throwable> exceptionHandler = exceptionCaptor.getValue();
         exceptionHandler.handle(new Exception("Failed"));
@@ -124,7 +122,7 @@ public class RedisSocketHandlerTest {
 
         verify(netSocket, times(1)).closeHandler(closeCaptorVoid.capture());
 
-        verify(eventBus, times(1)).consumer(eq("address"), Matchers.<Handler<Message<Object>>>any());
+        verify(eventBus, times(1)).consumer(eq("address"), any());
 
         closeCaptorVoid.getValue().handle(null);
 
@@ -136,22 +134,22 @@ public class RedisSocketHandlerTest {
     public void testSocketFailed() {
         asyncResultHandler.handle(Future.failedFuture(new Exception("Failed")));
 
-        verify(vertx, times(1)).setTimer(eq(2L), Matchers.<Handler<Long>>any());
+        verify(vertx, times(1)).setTimer(eq(2L), any());
     }
 
     @Test
     public void testSocketFailedMultipleTimes() {
         asyncResultHandler.handle(Future.failedFuture(new Exception("Failed")));
 
-        verify(vertx, times(1)).setTimer(eq(2L), Matchers.<Handler<Long>>any());
+        verify(vertx, times(1)).setTimer(eq(2L), any());
 
         asyncResultHandler.handle(Future.failedFuture(new Exception("Failed")));
 
-        verify(vertx, times(1)).setTimer(eq(4L), Matchers.<Handler<Long>>any());
+        verify(vertx, times(1)).setTimer(eq(4L), any());
 
         asyncResultHandler.handle(Future.failedFuture(new Exception("Failed")));
 
-        verify(vertx, times(1)).setTimer(eq(8L), Matchers.<Handler<Long>>any());
+        verify(vertx, times(1)).setTimer(eq(8L), any());
     }
 
     @Test
@@ -159,11 +157,11 @@ public class RedisSocketHandlerTest {
         for (int i = 1; i < 16; i++) {
             asyncResultHandler.handle(Future.failedFuture(new Exception("Failed")));
 
-            verify(vertx, times(1)).setTimer(eq((long) Math.pow(2, i)), Matchers.<Handler<Long>>any());
+            verify(vertx, times(1)).setTimer(eq((long) Math.pow(2, i)), any());
         }
 
         asyncResultHandler.handle(Future.failedFuture(new Exception("Failed")));
 
-        verify(vertx, times(1)).setTimer(eq(60000L), Matchers.<Handler<Long>>any());
+        verify(vertx, times(1)).setTimer(eq(60000L), any());
     }
 }

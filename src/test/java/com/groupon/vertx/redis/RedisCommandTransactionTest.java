@@ -1,12 +1,12 @@
 /**
  * Copyright 2014 Groupon.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,10 +17,9 @@ package com.groupon.vertx.redis;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -42,13 +41,14 @@ import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.hamcrest.FeatureMatcher;
+import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Equals;
+import org.mockito.hamcrest.MockitoHamcrest;
 
 /**
  * Tests for <code>RedisCommandTransaction</code>.
@@ -1290,18 +1290,11 @@ public class RedisCommandTransactionTest {
     }
 
     private static DeliveryOptions withTimeout(final Long expectedTimeout) {
-        return argThat(new DeliveryOptionsTimeoutFeatureMatcher(expectedTimeout));
-    }
-
-    private static final class DeliveryOptionsTimeoutFeatureMatcher extends FeatureMatcher<DeliveryOptions, Long> {
-
-        DeliveryOptionsTimeoutFeatureMatcher(final Long expectedTimeout) {
-            super(new Equals(expectedTimeout), "Timeout", "timeout");
-        }
-
-        @Override
-        protected Long featureValueOf(final DeliveryOptions deliveryOptions) {
-            return deliveryOptions.getSendTimeout();
-        }
+        return MockitoHamcrest.argThat(new FeatureMatcher<DeliveryOptions, Long>(IsEqual.equalTo(expectedTimeout), "timeout", "timeout") {
+            @Override
+            protected Long featureValueOf(DeliveryOptions deliveryOptions) {
+                return deliveryOptions.getSendTimeout();
+            }
+        });
     }
 }

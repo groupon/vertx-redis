@@ -1,12 +1,12 @@
 /**
  * Copyright 2014 Groupon.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,27 +15,24 @@
  */
 package com.groupon.vertx.redis;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import io.vertx.core.AsyncResult;
 import io.vertx.core.Context;
 import io.vertx.core.Future;
-import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.NetClient;
-import io.vertx.core.net.NetSocket;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -68,8 +65,8 @@ public class RedisVerticleTest extends TestCase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        stub(vertx.eventBus()).toReturn(eventBus);
-        stub(vertx.createNetClient()).toReturn(netClient);
+        when(vertx.eventBus()).thenReturn(eventBus);
+        when(vertx.createNetClient()).thenReturn(netClient);
         doReturn(context).when(vertx).getOrCreateContext();
 
         verticle = new RedisVerticle();
@@ -87,20 +84,20 @@ public class RedisVerticleTest extends TestCase {
     public void testStartValidConfig() {
         JsonObject config = new JsonObject("{\"redisConfig\":{\"host\":\"foo\",\"port\":1234,\"eventBusAddress\":\"address\"}}");
 
-        stub(context.config()).toReturn(config);
+        when(context.config()).thenReturn(config);
 
         verticle.start(startFuture);
 
         verify(context, times(1)).config();
         verify(vertx, times(1)).createNetClient();
-        verify(netClient, times(1)).connect(Matchers.eq(1234), Matchers.eq("foo"), Matchers.<Handler<AsyncResult<NetSocket>>>any());
+        verify(netClient, times(1)).connect(eq(1234), eq("foo"), any());
     }
 
     @Test
     public void testStartInvalidConfig() {
         JsonObject config = new JsonObject("{\"redisConfig\":{\"hostname\":\"foo\",\"portNumber\":1234}}");
 
-        stub(context.config()).toReturn(config);
+        when(context.config()).thenReturn(config);
 
         verticle.start(startFuture);
 
@@ -113,7 +110,7 @@ public class RedisVerticleTest extends TestCase {
     public void testStartMissingConfig() {
         JsonObject config = new JsonObject("{}");
 
-        stub(context.config()).toReturn(config);
+        when(context.config()).thenReturn(config);
 
         verticle.start(startFuture);
 
