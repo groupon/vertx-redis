@@ -15,11 +15,11 @@
  */
 package com.groupon.vertx.redis;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.Message;
@@ -55,7 +55,7 @@ public class RedisCommandHandlerTest {
 
     @Test
     public void testHandleNullMessage() {
-        stub(message.body()).toReturn(null);
+        when(message.body()).thenReturn(null);
 
         handler.handle(message);
 
@@ -65,7 +65,7 @@ public class RedisCommandHandlerTest {
 
     @Test
     public void testHandleEmptyMessage() {
-        stub(message.body()).toReturn(new JsonObject());
+        when(message.body()).thenReturn(new JsonObject());
 
         handler.handle(message);
 
@@ -76,7 +76,7 @@ public class RedisCommandHandlerTest {
     @Test
     public void testHandleInvalidMessage() {
 
-        stub(message.body()).toReturn(new JsonObject().put("commands", new JsonArray().add(new JsonObject().put("command", "invalid").put("arguments", "invalid"))));
+        when(message.body()).thenReturn(new JsonObject().put("commands", new JsonArray().add(new JsonObject().put("command", "invalid").put("arguments", "invalid"))));
 
         handler.handle(message);
 
@@ -86,7 +86,7 @@ public class RedisCommandHandlerTest {
 
     @Test
     public void testHandleValidMessage() {
-        stub(message.body()).toReturn(new JsonObject().put("commands", new JsonArray().add(new JsonObject().put("command", "GET").put("arguments", "somekey"))));
+        when(message.body()).thenReturn(new JsonObject().put("commands", new JsonArray().add(new JsonObject().put("command", "GET").put("arguments", "somekey"))));
 
         handler.handle(message);
 
@@ -106,7 +106,7 @@ public class RedisCommandHandlerTest {
         transactionCommands.put("isTransaction", true);
         transactionCommands.put("commands", commands);
 
-        stub(message.body()).toReturn(transactionCommands);
+        when(message.body()).thenReturn(transactionCommands);
 
         handler.handle(message);
 

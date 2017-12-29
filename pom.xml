@@ -29,7 +29,7 @@
   <name>Vertx Redis Library</name>
   <description>Library for accessing Redis from Vert.x applications</description>
   <url>https://github.com/groupon/vertx-redis</url>
-  <version>3.0.2-SNAPSHOT</version>
+  <version>3.1.0-SNAPSHOT</version>
 
   <licenses>
     <license>
@@ -113,14 +113,14 @@
 
   <properties>
     <!--Vertx dependency versions-->
-    <vertx.version>3.4.2</vertx.version>
-    <vertx.utils.version>3.3.2</vertx.utils.version>
+    <vertx.version>3.5.0</vertx.version>
+    <vertx.utils.version>3.3.4</vertx.utils.version>
 
     <!--Other dependency versions-->
     <junit.version>4.12</junit.version>
-    <logback.version>1.2.3</logback.version>
-    <mockito.version>1.10.19</mockito.version>
-    <slf4j.version>1.7.25</slf4j.version>
+    <mockito.version>2.12.0</mockito.version>
+    <jackson.version>2.9.2</jackson.version>
+    <netty.version>4.1.15.Final</netty.version>
 
     <!--Coverage Settings-->
     <jacoco.check.line.coverage>0.9</jacoco.check.line.coverage>
@@ -139,31 +139,29 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codegen</artifactId>
-      <version>${vertx.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>com.groupon.vertx</groupId>
       <artifactId>vertx-utils</artifactId>
       <version>${vertx.utils.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-buffer</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-http</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+
 
     <!-- Test dependencies -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>${logback.version}</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -172,8 +170,14 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
+      <artifactId>mockito-core</artifactId>
       <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>1.3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
