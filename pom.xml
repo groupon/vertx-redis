@@ -114,7 +114,7 @@
   <properties>
     <!--Vertx dependency versions-->
     <vertx.version>3.5.0</vertx.version>
-    <vertx.utils.version>3.3.4</vertx.utils.version>
+    <vertx.utils.version>3.5.0</vertx.utils.version>
 
     <!--Other dependency versions-->
     <junit.version>4.12</junit.version>
