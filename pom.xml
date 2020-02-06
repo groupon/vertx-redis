@@ -113,7 +113,7 @@
 
   <properties>
     <!--Vertx dependency versions-->
-    <vertx.version>3.5.0</vertx.version>
+    <vertx.version>3.5.4</vertx.version>
     <vertx.utils.version>3.5.0</vertx.utils.version>
 
     <!--Other dependency versions-->
