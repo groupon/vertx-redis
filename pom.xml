@@ -29,7 +29,7 @@
   <name>Vertx Redis Library</name>
   <description>Library for accessing Redis from Vert.x applications</description>
   <url>https://github.com/groupon/vertx-redis</url>
-  <version>3.1.1-SNAPSHOT</version>
+  <version>3.1.1</version>
 
   <licenses>
     <license>
@@ -108,7 +108,7 @@
     <connection>scm:git:git@github.com:groupon/vertx-redis.git</connection>
     <developerConnection>scm:git:git@github.com:groupon/vertx-redis.git</developerConnection>
     <url>https://github.com/groupon/vertx-redis</url>
-    <tag>HEAD</tag>
+    <tag>vertx-redis-3.1.1</tag>
   </scm>
 
   <properties>
