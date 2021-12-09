@@ -120,7 +120,7 @@
     <junit.version>4.13</junit.version>
     <mockito.version>3.2.4</mockito.version>
     <jackson.version>2.9.10.3</jackson.version>
-    <netty.version>4.1.15.Final</netty.version>
+    <netty.version>4.1.71.Final</netty.version>
 
     <!--Coverage Settings-->
     <jacoco.check.line.coverage>0.9</jacoco.check.line.coverage>
